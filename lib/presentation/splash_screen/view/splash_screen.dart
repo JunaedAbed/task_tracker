@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_tracker/core/app_export.dart';
+import 'package:task_tracker/presentation/splash_screen/controller/splash_controller.dart';
+import 'package:task_tracker/widgets/custom_image_view.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(SplashController());
+
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.transparent,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: SvgPicture.asset(
-                  ImageConstants.splashBg,
-                  // height: 165.adaptSize,
-                  // width: 277.adaptSize,
-                ),
-              ),
-              // Text("data")
-            ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              ImageConstants.splashBg,
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 30.h),
+                  child: CustomImageView(
+                    imagePath: ImageConstants.logo,
+                    height: 200.adaptSize,
+                    width: 200.adaptSize,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
