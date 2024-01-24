@@ -1,20 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_tracker/core/app_export.dart';
 import 'package:task_tracker/presentation/login_screen/controller/login_controller.dart';
+import 'package:task_tracker/presentation/login_screen/view/components/bottom_widget.dart';
+import 'package:task_tracker/presentation/login_screen/view/components/email_field.dart';
+import 'package:task_tracker/presentation/login_screen/view/components/password_field.dart';
+import 'package:task_tracker/presentation/login_screen/view/components/top_widget.dart';
+import 'package:task_tracker/widgets/custom_elevated_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(LoginController());
-
+    final controller = Get.put(LoginController());
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        toolbarHeight: 180.adaptSize,
+        backgroundColor: theme.colorScheme.background,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(ImageConstants.appbarBg),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        title: null,
       ),
-      body: Container(),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(left: 10.h, right: 10.h, top: 28.v),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            topWidget(),
+            SizedBox(height: 42.v),
+            emailField(controller),
+            SizedBox(height: 28.v),
+            passwordField(controller),
+            SizedBox(height: 28.v),
+            CustomElevatedButton(text: "Sign In", onPressed: () {}),
+            SizedBox(height: 28.v),
+            bottomWidget()
+          ],
+        ),
+      ),
     );
   }
 }

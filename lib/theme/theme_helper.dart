@@ -50,15 +50,15 @@ class ThemeHelper {
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
       textTheme: TextThemes.textTheme(colorScheme),
-      scaffoldBackgroundColor: colorScheme.onPrimaryContainer.withOpacity(1),
+      scaffoldBackgroundColor: colorScheme.background.withOpacity(1),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary.withOpacity(1),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.h),
+            borderRadius: BorderRadius.circular(14.h),
           ),
           shadowColor: colorScheme.primary,
-          elevation: 10,
+          elevation: 0,
           visualDensity: const VisualDensity(
             vertical: -4,
             horizontal: -4,
@@ -135,7 +135,7 @@ class TextThemes {
           color: colorScheme.onPrimary.withOpacity(1),
           fontSize: 16.fSize,
           fontFamily: 'Manrope',
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
         ),
         titleSmall: TextStyle(
           color: colorScheme.onPrimary.withOpacity(1),
@@ -149,13 +149,15 @@ class TextThemes {
 /// Class containing the supported color schemes.
 class ColorSchemes {
   static const primaryColorScheme = ColorScheme.light(
+    background: Color(0XFFF9F9FF),
     // Primary colors
     primary: Color(0XFF8C88CD),
     secondary: Color(0XFF93B8FD),
 
     // On colors(text colors)
-    onPrimary: Color(0XFF3868F6),
+    onPrimary: Color(0XFF8C88CD),
     onPrimaryContainer: Color(0X87FFFFFF),
+    onSecondaryContainer: Color(0XFFE9E9E9),
   );
 }
 
