@@ -90,7 +90,7 @@ class CustomTextFormField extends StatelessWidget {
           scrollPadding: EdgeInsets.only(
               bottom: MediaQuery.of(Get.context!).viewInsets.bottom),
           controller: controller,
-          focusNode: focusNode ?? FocusNode(),
+          // focusNode: focusNode ?? FocusNode(),
           autofocus: autofocus!,
           style: textStyle ?? theme.textTheme.bodySmall,
           obscureText: obscureText!,

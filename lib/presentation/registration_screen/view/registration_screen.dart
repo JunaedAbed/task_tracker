@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:task_tracker/core/app_export.dart';
-import 'package:task_tracker/presentation/login_screen/controller/login_controller.dart';
-import 'package:task_tracker/presentation/login_screen/view/components/bottom_widget.dart';
-import 'package:task_tracker/presentation/login_screen/view/components/email_field.dart';
-import 'package:task_tracker/presentation/login_screen/view/components/password_field.dart';
-import 'package:task_tracker/presentation/login_screen/view/components/top_widget.dart';
+import 'package:task_tracker/presentation/registration_screen/components/register_email_field.dart';
+import 'package:task_tracker/presentation/registration_screen/components/register_name_field.dart';
+import 'package:task_tracker/presentation/registration_screen/components/register_retype_pass_field.dart';
+import 'package:task_tracker/presentation/registration_screen/components/register_top_widget.dart';
+import 'package:task_tracker/presentation/registration_screen/controller/registration_controller.dart';
 import 'package:task_tracker/widgets/custom_elevated_button.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegistrationScreen extends StatelessWidget {
+  const RegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginController());
+    final controller = Get.put(RegistrationController());
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -34,15 +34,18 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              topWidget(),
+              registerTopWidget(),
               SizedBox(height: 42.v),
-              emailField(controller),
+              registerNameField(controller),
               SizedBox(height: 28.v),
-              passwordField(controller),
+              registerEmailField(controller),
               SizedBox(height: 28.v),
-              CustomElevatedButton(text: "Sign In", onPressed: () {}),
+              registerEmailField(controller),
               SizedBox(height: 28.v),
-              bottomWidget()
+              registerRetypePassField(controller),
+              SizedBox(height: 28.v),
+              CustomElevatedButton(text: "Sign Up", onPressed: () {}),
+              SizedBox(height: 28.v),
             ],
           ),
         ),

@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:task_tracker/core/app_export.dart';
 import 'package:task_tracker/core/utils/validation_functions.dart';
-import 'package:task_tracker/presentation/login_screen/controller/login_controller.dart';
+import 'package:task_tracker/presentation/registration_screen/controller/registration_controller.dart';
 import 'package:task_tracker/widgets/custom_text_form_field.dart';
 
-passwordField(LoginController controller) {
+registerNameField(RegistrationController controller) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        "Password",
+        "Name",
         style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14.fSize),
       ),
       SizedBox(height: 14.v),
       CustomTextFormField(
-        controller: controller.passwordController,
-        hintText: "Type password here",
-        textInputType: TextInputType.visiblePassword,
+        controller: controller.nameController,
+        hintText: "Type name here",
+        textInputType: TextInputType.text,
         prefixConstraints: BoxConstraints(maxHeight: 54.v),
         validator: (value) {
-          if (value == null || (!isValidPassword(value, isRequired: true))) {
-            return "please enter valid password";
+          if (value == null || (!isText(value, isRequired: true))) {
+            return "Please enter valid email";
           }
           return null;
         },

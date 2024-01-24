@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:task_tracker/core/app_export.dart';
 import 'package:task_tracker/core/utils/validation_functions.dart';
-import 'package:task_tracker/presentation/login_screen/controller/login_controller.dart';
+import 'package:task_tracker/presentation/registration_screen/controller/registration_controller.dart';
 import 'package:task_tracker/widgets/custom_text_form_field.dart';
 
-passwordField(LoginController controller) {
+registerPasswordField(RegistrationController controller) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
