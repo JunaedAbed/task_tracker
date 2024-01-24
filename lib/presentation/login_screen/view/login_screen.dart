@@ -40,7 +40,8 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: 28.v),
               passwordField(controller),
               SizedBox(height: 28.v),
-              CustomElevatedButton(text: "Sign In", onPressed: () {}),
+              CustomElevatedButton(
+                  text: "Sign In", onPressed: () => controller.signIn()),
               SizedBox(height: 28.v),
               bottomWidget()
             ],
