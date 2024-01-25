@@ -15,7 +15,7 @@ class LoginController extends GetxController {
         email: emailController.text, password: passwordController.text));
 
     if (response.token!.isNotEmpty) {
-      Get.toNamed(AppRoutes.dashboardScreen);
+      Get.toNamed(AppRoutes.dashboardContainerScreen);
     }
   }
 }
