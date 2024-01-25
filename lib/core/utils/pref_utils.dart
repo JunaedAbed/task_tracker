@@ -31,4 +31,35 @@ class PrefUtils {
       return 'primary';
     }
   }
+
+  // TOKEN
+  Future<bool> setAuthToken(String token) async {
+    return _sharedPreferences!.setString('TOKEN', token);
+  }
+
+  String getAuthToken() {
+    try {
+      return _sharedPreferences!.getString('TOKEN') ?? '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  // customer ID
+  Future<bool> setCustomerId(String token) async {
+    return _sharedPreferences!.setString('customerId', token);
+  }
+
+  String getCustomerId() {
+    try {
+      return _sharedPreferences!.getString('customerId') ?? '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  // Check if user is logged in
+  bool isLoggedIn() {
+    return _sharedPreferences!.containsKey('TOKEN');
+  }
 }

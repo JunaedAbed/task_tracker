@@ -4,3 +4,4 @@ export 'package:task_tracker/core/utils/size_utils.dart';
 export 'package:task_tracker/routes/app_routes.dart';
 export 'package:task_tracker/core/utils/image_constants.dart';
 export 'package:task_tracker/core/utils/pref_utils.dart';
+export 'package:task_tracker/core/errors/app_exceptions.dart';
