@@ -1,5 +1,5 @@
+import 'package:task_tracker/core/app_export.dart';
 import 'package:task_tracker/core/errors/error_controller.dart';
-import 'package:task_tracker/core/utils/pref_utils.dart';
 import 'package:task_tracker/data/api/api_client.dart';
 import 'package:task_tracker/data/services/auth/auth_repository_interface.dart';
 import 'package:task_tracker/presentation/login_screen/models/login_request_model.dart';
@@ -16,17 +16,10 @@ class AuthRepository with ErrorController implements AuthRepositoryInterface {
       var response =
           await apiClient.postData("user/login", body, useBearerToken: false);
 
-      print('RESPONSE: $response');
-
       var loginResponseModel = loginResponseModelFromJson(response);
 
       await saveUserToken(loginResponseModel.token.toString());
       await saveCustomerId(loginResponseModel.user!.id.toString());
-
-      print(getUserToken());
-      print(getCustomerId());
-
-      print(isLoggedIn());
 
       return loginResponseModel;
     } catch (e) {
@@ -35,27 +28,31 @@ class AuthRepository with ErrorController implements AuthRepositoryInterface {
     }
   }
 
-  bool? isLoggedIn() {
-    return PrefUtils().isLoggedIn();
+  @override
+  Future<bool> isLoggedIn() {
+    return DatabaseHelper().isLoggedIn();
   }
 
   // for  user token
-  Future<bool?> saveUserToken(String token) async {
-    return await PrefUtils().setAuthToken(token);
+  Future<bool> saveUserToken(String token) async {
+    // return await PrefUtils().setAuthToken(token);
+    return await DatabaseHelper().setAuthToken(token);
   }
 
   //for get token
-  String getUserToken() {
-    return PrefUtils().getAuthToken();
+  @override
+  Future<String> getUserToken() {
+    return DatabaseHelper().getAuthToken();
   }
 
   // for  customer ID
   Future<bool?> saveCustomerId(String custId) async {
-    return await PrefUtils().setCustomerId(custId);
+    return await DatabaseHelper().setCustomerId(custId);
   }
 
   //for get token
-  String getCustomerId() {
-    return PrefUtils().getCustomerId();
+  @override
+  Future<String> getCustomerId() {
+    return DatabaseHelper().getCustomerId();
   }
 }

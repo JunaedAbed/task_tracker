@@ -3,4 +3,7 @@ import 'package:task_tracker/presentation/login_screen/models/login_response_mod
 
 abstract class AuthRepositoryInterface {
   Future<LoginResponseModel> login(LoginRequestModel entity);
+  Future<String> getCustomerId();
+  Future<bool> isLoggedIn();
+  Future<String> getUserToken();
 }

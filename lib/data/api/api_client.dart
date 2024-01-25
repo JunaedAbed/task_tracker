@@ -27,8 +27,6 @@ class ApiClient extends GetConnect implements GetxService {
   Future<dynamic> postData(String endpoint, Map<String, dynamic> data,
       {bool useBearerToken = true}) async {
     try {
-      print('$baseUrl/$endpoint');
-      print(json.encode(data));
       final headers = useBearerToken
           ? {
               'Authorization': 'Bearer ${bearerToken ?? ''}',
