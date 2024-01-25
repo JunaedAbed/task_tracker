@@ -4,6 +4,8 @@ import 'package:task_tracker/data/api/api_client.dart';
 import 'package:task_tracker/data/services/auth/auth_repository_interface.dart';
 import 'package:task_tracker/presentation/login_screen/models/login_request_model.dart';
 import 'package:task_tracker/presentation/login_screen/models/login_response_model.dart';
+import 'package:task_tracker/presentation/registration_screen/models/register_request_model.dart';
+import 'package:task_tracker/presentation/registration_screen/models/register_response_model.dart';
 
 class AuthRepository with ErrorController implements AuthRepositoryInterface {
   final apiClient = ApiClient();
@@ -22,6 +24,23 @@ class AuthRepository with ErrorController implements AuthRepositoryInterface {
       await saveCustomerId(loginResponseModel.user!.id.toString());
 
       return loginResponseModel;
+    } catch (e) {
+      handleError(e);
+      throw Exception('Error in login: $e');
+    }
+  }
+
+  @override
+  Future<RegisterResponseModel> register(RegisterRequestModel entity) async {
+    var body = entity.toJson();
+
+    try {
+      var response = await apiClient.postData("user/register", body,
+          useBearerToken: false);
+
+      var registerResponseModel = registerResponseModelFromJson(response);
+
+      return registerResponseModel;
     } catch (e) {
       handleError(e);
       throw Exception('Error in login: $e');

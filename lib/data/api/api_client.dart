@@ -27,6 +27,8 @@ class ApiClient extends GetConnect implements GetxService {
   Future<dynamic> postData(String endpoint, Map<String, dynamic> data,
       {bool useBearerToken = true}) async {
     try {
+      print(json.encode(data));
+
       final headers = useBearerToken
           ? {
               'Authorization': 'Bearer ${bearerToken ?? ''}',
@@ -50,6 +52,9 @@ class ApiClient extends GetConnect implements GetxService {
 _processResponse(Response response) async {
   switch (response.statusCode) {
     case 200:
+      var resJson = response.bodyString!;
+      return resJson;
+    case 201:
       var resJson = response.bodyString!;
       return resJson;
     case 400:

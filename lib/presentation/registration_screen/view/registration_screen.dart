@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:task_tracker/core/app_export.dart';
-import 'package:task_tracker/presentation/registration_screen/components/register_email_field.dart';
-import 'package:task_tracker/presentation/registration_screen/components/register_name_field.dart';
-import 'package:task_tracker/presentation/registration_screen/components/register_retype_pass_field.dart';
-import 'package:task_tracker/presentation/registration_screen/components/register_top_widget.dart';
+import 'package:task_tracker/presentation/registration_screen/view/components/register_email_field.dart';
+import 'package:task_tracker/presentation/registration_screen/view/components/register_name_field.dart';
+import 'package:task_tracker/presentation/registration_screen/view/components/register_password_field.dart';
+import 'package:task_tracker/presentation/registration_screen/view/components/register_retype_pass_field.dart';
+import 'package:task_tracker/presentation/registration_screen/view/components/register_top_widget.dart';
 import 'package:task_tracker/presentation/registration_screen/controller/registration_controller.dart';
 import 'package:task_tracker/widgets/custom_elevated_button.dart';
 
@@ -13,6 +14,7 @@ class RegistrationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(RegistrationController());
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -40,11 +42,12 @@ class RegistrationScreen extends StatelessWidget {
               SizedBox(height: 28.v),
               registerEmailField(controller),
               SizedBox(height: 28.v),
-              registerEmailField(controller),
+              registerPasswordField(controller),
               SizedBox(height: 28.v),
               registerRetypePassField(controller),
               SizedBox(height: 28.v),
-              CustomElevatedButton(text: "Sign Up", onPressed: () {}),
+              CustomElevatedButton(
+                  text: "Sign Up", onPressed: () => controller.signUp()),
               SizedBox(height: 28.v),
             ],
           ),
