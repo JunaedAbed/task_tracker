@@ -18,19 +18,22 @@ class ApiClient extends GetConnect implements GetxService {
     bearerToken = await DatabaseHelper().getAuthToken();
   }
 
-  // void setBearerToken(String token) {
-  //   DatabaseHelper().setAuthToken(token);
-  //   bearerToken = token;
-  // }
-
   Future<dynamic> getData(String endpoint) async {
-    final response = await connect.get(
-      '$baseUrl/$endpoint',
-      headers: {
-        'Authorization': 'Bearer ${bearerToken ?? ''}',
-      },
-    );
-    return _processResponse(response);
+    try {
+      print('$baseUrl/$endpoint');
+      print('Request Token: $bearerToken');
+
+      final response = await connect.get(
+        '$baseUrl/$endpoint',
+        headers: {
+          'Authorization': 'Bearer ${bearerToken ?? ''}',
+        },
+      );
+      return _processResponse(response);
+    } catch (e) {
+      print("Error in getData: $e");
+      throw e;
+    }
   }
 
   Future<dynamic> postData(String endpoint, Map<String, dynamic> data,
