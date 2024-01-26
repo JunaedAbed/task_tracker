@@ -10,9 +10,18 @@ class ApiClient extends GetConnect implements GetxService {
 
   final GetConnect connect = Get.find<GetConnect>();
 
-  void setBearerToken(String token) {
-    bearerToken = token;
+  ApiClient() {
+    initBearerToken();
   }
+
+  Future<void> initBearerToken() async {
+    bearerToken = await DatabaseHelper().getAuthToken();
+  }
+
+  // void setBearerToken(String token) {
+  //   DatabaseHelper().setAuthToken(token);
+  //   bearerToken = token;
+  // }
 
   Future<dynamic> getData(String endpoint) async {
     final response = await connect.get(
@@ -27,7 +36,7 @@ class ApiClient extends GetConnect implements GetxService {
   Future<dynamic> postData(String endpoint, Map<String, dynamic> data,
       {bool useBearerToken = true}) async {
     try {
-      print(json.encode(data));
+      print('Request Data: ${json.encode(data)}');
 
       final headers = useBearerToken
           ? {
@@ -53,6 +62,7 @@ _processResponse(Response response) async {
   switch (response.statusCode) {
     case 200:
       var resJson = response.bodyString!;
+      print(resJson);
       return resJson;
     case 201:
       var resJson = response.bodyString!;

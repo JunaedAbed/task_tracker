@@ -51,6 +51,16 @@ class ThemeHelper {
       colorScheme: colorScheme,
       textTheme: TextThemes.textTheme(colorScheme),
       scaffoldBackgroundColor: colorScheme.background.withOpacity(1),
+      appBarTheme: AppBarTheme(
+        backgroundColor: const Color(0XFFFAFAFF),
+        titleSpacing: 10,
+        titleTextStyle: TextStyle(
+          color: appTheme.black,
+          fontSize: 24.fSize,
+          fontFamily: 'Manrope',
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary.withOpacity(1),
@@ -167,7 +177,7 @@ class PrimaryColors {
 
   Color get pink => const Color(0XFFE6466A);
 
-  Color get black => const Color(0XFF171717);
+  Color get black => const Color(0XFF282B31);
   // Amber
   Color get amber500 => const Color(0XFF3868F6);
 

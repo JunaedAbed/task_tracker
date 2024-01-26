@@ -6,7 +6,8 @@ import 'package:task_tracker/presentation/registration_screen/models/register_re
 abstract class AuthRepositoryInterface {
   Future<LoginResponseModel> login(LoginRequestModel entity);
   Future<RegisterResponseModel> register(RegisterRequestModel entity);
-  Future<String> getCustomerId();
+  Future<LoginResponseModel> getCustomer();
   Future<bool> isLoggedIn();
   Future<String> getUserToken();
+  Future<bool> logout();
 }

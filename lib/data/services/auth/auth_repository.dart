@@ -20,8 +20,10 @@ class AuthRepository with ErrorController implements AuthRepositoryInterface {
 
       var loginResponseModel = loginResponseModelFromJson(response);
 
-      await saveUserToken(loginResponseModel.token.toString());
-      await saveCustomerId(loginResponseModel.user!.id.toString());
+      // await saveUserToken(loginResponseModel.token.toString());
+      await saveCustomerData(loginResponseModel);
+
+      // apiClient.setBearerToken(loginResponseModel.token.toString());
 
       return loginResponseModel;
     } catch (e) {
@@ -53,10 +55,10 @@ class AuthRepository with ErrorController implements AuthRepositoryInterface {
   }
 
   // for  user token
-  Future<bool> saveUserToken(String token) async {
-    // return await PrefUtils().setAuthToken(token);
-    return await DatabaseHelper().setAuthToken(token);
-  }
+  // Future<bool> saveUserToken(String token) async {
+  //   // return await PrefUtils().setAuthToken(token);
+  //   return await DatabaseHelper().setAuthToken(token);
+  // }
 
   //for get token
   @override
@@ -65,13 +67,54 @@ class AuthRepository with ErrorController implements AuthRepositoryInterface {
   }
 
   // for  customer ID
-  Future<bool?> saveCustomerId(String custId) async {
-    return await DatabaseHelper().setCustomerId(custId);
+  Future<bool?> saveCustomerData(LoginResponseModel customer) async {
+    try {
+      await DatabaseHelper().saveCustomerData(
+        token: customer.token!,
+        customerId: customer.user!.id!,
+        customerName: customer.user!.name!,
+        customerMail: customer.user!.email!,
+      );
+
+      return true;
+    } catch (e) {
+      print('Error saving customer data: $e');
+      return false;
+    }
   }
 
-  //for get token
+  //for get customer
   @override
-  Future<String> getCustomerId() {
-    return DatabaseHelper().getCustomerId();
+  Future<LoginResponseModel> getCustomer() async {
+    final Map<String, dynamic> result = await DatabaseHelper().getCustomer();
+
+    if (result.isNotEmpty) {
+      return LoginResponseModel(
+        user: LoginUser(
+          id: result['customerId'],
+          name: result['customerName'],
+          email: result['customerMail'],
+        ),
+        token: result['token'],
+      );
+    } else {
+      // If no data is available, you might want to return an appropriate default or throw an exception.
+      throw Exception('No customer data available');
+    }
+  }
+
+  @override
+  Future<bool> logout() async {
+    try {
+      var response = await apiClient.postData("user/logout", {});
+
+      print(response);
+
+      await DatabaseHelper().clearPreferencesData();
+      return true;
+    } catch (e) {
+      handleError(e);
+      throw Exception('Error in logout: $e');
+    }
   }
 }

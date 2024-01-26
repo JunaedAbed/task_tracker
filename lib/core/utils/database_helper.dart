@@ -34,9 +34,10 @@ class DatabaseHelper {
         db.execute('''
           CREATE TABLE IF NOT EXISTS user_data (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            themeData TEXT,
             token TEXT,
-            customerId TEXT
+            customerId TEXT,
+            customerName TEXT,
+            customerMail TEXT
           )
         ''');
       },
@@ -48,25 +49,32 @@ class DatabaseHelper {
     await db.delete('user_data');
   }
 
-  Future<void> setThemeData(String value) async {
+  Future<bool> saveCustomerData({
+    required String token,
+    required String customerId,
+    required String customerName,
+    required String customerMail,
+  }) async {
     final Database db = await database;
-    await db.rawInsert(
-        'INSERT OR REPLACE INTO user_data (themeData) VALUES (?)', [value]);
+    try {
+      await db.rawInsert(
+        'INSERT OR REPLACE INTO user_data (token, customerId, customerName, customerMail) VALUES (?, ?, ?, ?)',
+        [token, customerId, customerName, customerMail],
+      );
+
+      return true;
+    } catch (e) {
+      print('Error updating customer data: $e');
+      return false;
+    }
   }
 
-  Future<String> getThemeData() async {
-    final Database db = await database;
-    final List<Map<String, dynamic>> result =
-        await db.query('user_data', columns: ['themeData']);
-    return result.isNotEmpty ? result.first['themeData'] : 'primary';
-  }
-
-  Future<bool> setAuthToken(String token) async {
-    final Database db = await database;
-    await db.rawInsert(
-        'INSERT OR REPLACE INTO user_data (token) VALUES (?)', [token]);
-    return true;
-  }
+  // Future<bool> setAuthToken(String token) async {
+  //   final Database db = await database;
+  //   await db.rawInsert(
+  //       'INSERT OR REPLACE INTO user_data (token) VALUES (?)', [token]);
+  //   return true;
+  // }
 
   Future<String> getAuthToken() async {
     final Database db = await database;
@@ -90,10 +98,52 @@ class DatabaseHelper {
     return result.isNotEmpty ? result.first['customerId'] : '';
   }
 
+  Future<bool> setCustomerName(String customerName) async {
+    final Database db = await database;
+    await db.rawInsert(
+        'INSERT OR REPLACE INTO user_data (customerName) VALUES (?)',
+        [customerName]);
+    return true;
+  }
+
+  Future<String> getCustomerName() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> result =
+        await db.query('user_data', columns: ['customerName']);
+    return result.isNotEmpty ? result.first['customerName'] : '';
+  }
+
+  Future<bool> setCustomerMail(String customerMail) async {
+    final Database db = await database;
+    await db.rawInsert(
+        'INSERT OR REPLACE INTO user_data (customerMail) VALUES (?)',
+        [customerMail]);
+    return true;
+  }
+
+  Future<Map<String, dynamic>> getCustomer() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> result = await db.query('user_data');
+
+    if (result.isNotEmpty) {
+      return result.first;
+    } else {
+      return {};
+    }
+  }
+
+  Future<String> getCustomerMail() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> result =
+        await db.query('user_data', columns: ['customerMail']);
+    return result.isNotEmpty ? result.first['customerMail'] : '';
+  }
+
   Future<bool> isLoggedIn() async {
     final Database db = await database;
     final List<Map<String, dynamic>> result =
         await db.query('user_data', columns: ['token']);
+
     return result.isNotEmpty;
   }
 }

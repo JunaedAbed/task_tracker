@@ -11,7 +11,7 @@ String loginResponseModelToJson(LoginResponseModel data) =>
     json.encode(data.toJson());
 
 class LoginResponseModel {
-  User? user;
+  LoginUser? user;
   String? token;
 
   LoginResponseModel({
@@ -21,7 +21,7 @@ class LoginResponseModel {
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
       LoginResponseModel(
-        user: User.fromJson(json["user"]),
+        user: LoginUser.fromJson(json["user"]),
         token: json["token"],
       );
 
@@ -31,7 +31,7 @@ class LoginResponseModel {
       };
 }
 
-class User {
+class LoginUser {
   int? age;
   String? id;
   String? name;
@@ -40,7 +40,7 @@ class User {
   DateTime? updatedAt;
   int? v;
 
-  User({
+  LoginUser({
     this.age,
     this.id,
     this.name,
@@ -50,7 +50,7 @@ class User {
     this.v,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory LoginUser.fromJson(Map<String, dynamic> json) => LoginUser(
         age: json["age"],
         id: json["_id"],
         name: json["name"],

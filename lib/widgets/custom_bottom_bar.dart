@@ -3,6 +3,7 @@ import 'package:task_tracker/core/app_export.dart';
 import 'package:task_tracker/theme/custom_text_styles.dart';
 import 'package:task_tracker/widgets/custom_image_view.dart';
 
+// ignore: must_be_immutable
 class CustomBottomBar extends StatelessWidget {
   Function(BottomBarEnum)? onChanged;
 

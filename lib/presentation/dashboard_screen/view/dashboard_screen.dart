@@ -7,7 +7,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: const Color(0XFFFAFAFF),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(left: 10.h, right: 10.h, top: 30.v),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
